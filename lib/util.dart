@@ -66,6 +66,7 @@ class CustomColors {
   static const Color AccentShadow = Color.fromRGBO(84, 184, 255, 0.68);
 
   static const Color GradientBottom = Color.fromRGBO(194, 212, 248, 1);
+  static const Color StatusBarColor = Color.fromRGBO(194, 212, 248, 0.3);
   static const Color GradientTop = Color.fromRGBO(247, 249, 253, 1);
   static const Color GradientMiddle = Color.fromRGBO(244, 248, 255, 1);
   static const Color BorderColor = Color.fromRGBO(84, 105, 255, 1);
