@@ -18,9 +18,9 @@ class _HelloPageState extends State<HelloPage> {
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
-    var jobs = Repository().routinJobs;
+    var jobs = Repository().routineJobs;
     for( var i = 0 ; i < jobs.length; i++ ){
-      var job = Repository().routinJobs[i];
+      var job = Repository().routineJobs[i];
       items.add(new DropdownMenuItem(value: job.name, child: new Text(job.name)));
     }
     return items;
