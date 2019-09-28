@@ -28,23 +28,25 @@ class _AuthPageState extends State<AuthPage> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [CustomColors.GradientTop,
-                    CustomColors.GradientMiddle,
-                    CustomColors.GradientBottom])),
+                  colors: [
+                CustomColors.GradientTop,
+                CustomColors.GradientMiddle,
+                CustomColors.GradientBottom
+              ])),
           child: Container(
-            //width: MediaQuery.of(context).size.width / 1.2,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 30),
-                Expanded(
-                  flex: 2,
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'Узнай кто ты',
                         style: TextStyle(
                             fontSize: 30,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                             color: CustomColors.TextHeader),
                       ),
                       Text(
@@ -59,7 +61,6 @@ class _AuthPageState extends State<AuthPage> {
                     ],
                   ),
                 ),
-
                 Expanded(
                   flex: 4,
                   child: Hero(
@@ -67,7 +68,7 @@ class _AuthPageState extends State<AuthPage> {
                     child: Image.asset('assets/auth_page_image.png'),
                   ),
                 ),
-
+                SizedBox(height: 40),
                 Expanded(
                   flex: 0,
                   child: RaisedButton(
