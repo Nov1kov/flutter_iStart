@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:istart/resultpage.dart';
 
 import 'Repository.dart';
 import 'hellopage.dart';
@@ -18,7 +19,7 @@ class _splashscreenState extends State<splashscreen> {
       var r = Repository();
       await r.load();
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HelloPage(),
+        builder: (context) => ResultPage(selectedJob: "Бухгалтер"),
       ));
     });
   }

@@ -17,17 +17,13 @@ class _ResultPageState extends State<ResultPage> {
 
   _ResultPageState(@required String this.selectedJob);
 
-  String getHelloText() {
-    return "Привет, " + "Константин";
-  }
-
   @override
   void initState() {
     var r = Repository();
     var rJob = r.routineJobs
         .firstWhere((j) => j.name == selectedJob, orElse: () => null);
-    for (var itJob in Repository().itJobs){
-      if (rJob.predictions.any((p) => p.name == itJob.name)){
+    for (var itJob in Repository().itJobs) {
+      if (rJob.predictions.any((p) => p.name == itJob.name)) {
         predictedJobs.add(itJob);
       }
     }
@@ -56,21 +52,20 @@ class _ResultPageState extends State<ResultPage> {
           child: Container(
             child: Column(
               children: <Widget>[
+                SizedBox(height: 80),
                 Container(
-                  height: MediaQuery.of(context).size.height / 3,
+                  height: MediaQuery.of(context).size.height / 8,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        getHelloText(),
+                        "Вот, что тебе подходит",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: CustomColors.TextHeader),
                       ),
                       Text(
-                        'выбери свою текущую должность',
+                        'Освой новую профессию',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -81,19 +76,98 @@ class _ResultPageState extends State<ResultPage> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: new Center(),
+                Container(
+                  margin: EdgeInsets.fromLTRB(48, 0, 0, 0),
+                  height: 120.0,
+                  child: PredictionsList(predictedJobs),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Container(),
-                )
+                SizedBox(
+                  height: 27,
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 48),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              new BorderRadius.all(new Radius.circular(15.0)),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.all(22),
+                              child: Text(
+                                "Sata bla bla bla",
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: CustomColors.TextSubHeader,
+                                ),
+                              ),
+                            ),
+                            Container(
+                                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                                child: Text("long long text",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: CustomColors.TextHeader))),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class PredictionsList extends StatelessWidget {
+  // Builder methods rely on a set of data, such as a list.
+  final List<ItJob> predictionItJobs;
+
+  PredictionsList(this.predictionItJobs);
+
+  // First, make your build method like normal.
+  // Instead of returning Widgets, return a method that returns widgets.
+  // Don't forget to pass in the context!
+  @override
+  Widget build(BuildContext context) {
+    return _buildList(context);
+  }
+
+  Widget _buildProductItem(BuildContext context, int index) {
+    return Container(
+      width: 130,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
+      ),
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/' + (index + 1).toString() + '.png'),
+          SizedBox(height: 12),
+          Text(predictionItJobs[index].name,
+              style: TextStyle(fontSize: 14, color: CustomColors.TextHeader))
+        ],
+      ),
+    );
+  }
+
+  ListView _buildList(context) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      // Must have an item count equal to the number of items!
+      itemCount: predictionItJobs.length,
+      // A callback that will return a widget.
+      itemBuilder: _buildProductItem,
     );
   }
 }

@@ -53,10 +53,10 @@ class CustomColors {
   static const Color TrashRed = Color.fromRGBO(251, 54, 54, 1);
   static const Color TrashRedBackground = Color.fromRGBO(255, 207, 207, 1);
 
-  static const Color TextHeader = Color.fromRGBO(8,16,81, 1);
+  static const Color TextHeader = Color.fromRGBO(8, 16, 81, 1);
   static const Color TextHeaderGrey = Color.fromRGBO(104, 104, 104, 1);
   static const Color TextSubHeaderGrey = Color.fromRGBO(161, 161, 161, 1);
-  static const Color TextSubHeader = Color.fromRGBO(139, 135, 179, 1);
+  static const Color TextSubHeader = Color.fromRGBO(52, 67, 86, 1);
   static const Color TextBody = Color.fromRGBO(130, 160, 183, 1);
   static const Color TextGrey = Color.fromRGBO(198, 198, 200, 1);
   static const Color TextWhite = Color.fromRGBO(243, 243, 243, 1);
@@ -68,5 +68,5 @@ class CustomColors {
   static const Color GradientBottom = Color.fromRGBO(194, 212, 248, 1);
   static const Color GradientTop = Color.fromRGBO(247, 249, 253, 1);
   static const Color GradientMiddle = Color.fromRGBO(244, 248, 255, 1);
-  static const Color BorderColor = Color.fromRGBO(84,105,255, 1);
+  static const Color BorderColor = Color.fromRGBO(84, 105, 255, 1);
 }

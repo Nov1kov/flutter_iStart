@@ -1,14 +1,18 @@
 [
   {
-    "name": "Бухшалтеор",
+    "name": "Бухгалтер",
     "predictions": [
       {
-        "name": "Project manager",
-        "rate": 50
+        "name": "Аналитик big data",
+        "rate": 77
       },
       {
-        "name": "Аналитик",
-        "rate": 20
+        "name": "Тестировщик ПО",
+        "rate": 53
+      },
+      {
+        "name": "Сетевой юрист",
+        "rate": 41
       }
     ]
   },
@@ -16,25 +20,33 @@
     "name": "Оператор call cetner",
     "predictions": [
       {
-        "name": "Project manager",
-        "rate": 50
+        "name": "Менджер digital коммуникациям",
+        "rate": 87
       },
       {
-        "name": "Аналитик",
-        "rate": 20
+        "name": "Тестировщик ПО",
+        "rate": 52
+      },
+      {
+        "name": "Аналитик big data",
+        "rate": 21
       }
     ]
   },
   {
-    "name": "Какая то рутиная работа",
+    "name": "специалист по закупкам",
     "predictions": [
       {
-        "name": "Project manager",
-        "rate": 50
+        "name": "сетевой юрист",
+        "rate": 93
       },
       {
-        "name": "Аналитик",
-        "rate": 20
+        "name": "Тестировщик ПО",
+        "rate": 69
+      },
+      {
+        "name": "Java разработчик",
+        "rate": 27
       }
     ]
   }
