@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'Repository.dart';
+
 import 'util.dart';
 
-class HelloPage extends StatefulWidget {
-  HelloPage({Key key}) : super(key: key);
+class ResultPage extends StatefulWidget {
+  ResultPage({Key key}) : super(key: key);
 
-  _HelloPageState createState() => _HelloPageState();
+  _ResultPageState createState() => _ResultPageState();
 }
 
-class _HelloPageState extends State<HelloPage> {
+class _ResultPageState extends State<ResultPage> {
   String getHelloText() {
     return "Привет, " + "Константин";
   }
+
+  List _jobs = ["Бухгалтер", "Рекрутер", "Специалист по закупкам"];
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _selectedJob;
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
-    var jobs = Repository().routinJobs;
-    for( var i = 0 ; i < jobs.length; i++ ){
-      var job = Repository().routinJobs[i];
-      items.add(new DropdownMenuItem(value: job.name, child: new Text(job.name)));
+    for (String city in _jobs) {
+      items.add(new DropdownMenuItem(value: city, child: new Text(city)));
     }
     return items;
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:istart/splash.dart';
 
 import 'authpage.dart';
 import 'util.dart';
@@ -33,7 +34,7 @@ class _AppState extends State<App> {
         canvasColor: CustomColors.GreyBackground,
         fontFamily: 'rubik',
       ),
-      home: AuthPage(),
+      home: splashscreen(),
     );
   }
 }

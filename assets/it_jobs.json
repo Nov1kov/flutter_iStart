@@ -1,0 +1,20 @@
+{
+  "it_jobs" : [
+    {
+      "name": "Аналитик",
+      "description" : "А кто же это ты такой",
+      "salary": "от 80 тыс руб",
+      "links": [
+        "https://golearn.com"
+      ]
+    },
+    {
+      "name" : "Оператор call cetner",
+      "description" : "А кто же это ты такой",
+      "salary": "от 80 тыс руб",
+      "links": [
+        "https://golearn.com"
+      ]
+    }
+  ]
+}

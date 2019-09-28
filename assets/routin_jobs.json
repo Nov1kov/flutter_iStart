@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Бухшалтеор",
+    "predictions": [
+      "Аналитик",
+      "Data since"
+    ]
+  },
+  {
+    "name": "Оператор call cetner",
+    "predictions": [
+      "Project manager",
+      "Аналитик"
+    ]
+  },
+  {
+    "name": "Какая то рутиная работа",
+    "predictions": [
+      "какая то айти проффесия",
+      "еще айти профа"
+    ]
+  }
+]
