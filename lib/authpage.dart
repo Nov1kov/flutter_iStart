@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'hellopage.dart';
 import 'util.dart';
 
 class AuthPage extends StatefulWidget {
@@ -73,18 +74,10 @@ class _AuthPageState extends State<AuthPage> {
                   flex: 0,
                   child: RaisedButton(
                     onPressed: () {
-                      // HERO-ANIMATION: https://github.com/flutter/flutter/issues/28041
-                      // Navigator.of(context).pushReplacement(
-                      //   PageRouteBuilder(
-                      //     transitionDuration: Duration(seconds: 1),
-                      //     pageBuilder: (_, __, ___) => Empty(),
-                      //   ),
-                      // );
-                      /*Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Empty()),
-                    );
-                    */
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HelloPage()),
+                      );
                     },
                     textColor: Colors.white,
                     padding: const EdgeInsets.all(0.0),
