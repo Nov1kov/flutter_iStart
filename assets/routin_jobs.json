@@ -2,22 +2,40 @@
   {
     "name": "Бухшалтеор",
     "predictions": [
-      "Аналитик",
-      "Data since"
+      {
+        "name": "Project manager",
+        "rate": 50
+      },
+      {
+        "name": "Аналитик",
+        "rate": 20
+      }
     ]
   },
   {
     "name": "Оператор call cetner",
     "predictions": [
-      "Project manager",
-      "Аналитик"
+      {
+        "name": "Project manager",
+        "rate": 50
+      },
+      {
+        "name": "Аналитик",
+        "rate": 20
+      }
     ]
   },
   {
     "name": "Какая то рутиная работа",
     "predictions": [
-      "какая то айти проффесия",
-      "еще айти профа"
+      {
+        "name": "Project manager",
+        "rate": 50
+      },
+      {
+        "name": "Аналитик",
+        "rate": 20
+      }
     ]
   }
 ]

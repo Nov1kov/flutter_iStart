@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:istart/resultpage.dart';
 import 'Repository.dart';
 import 'util.dart';
 
@@ -26,9 +27,13 @@ class _HelloPageState extends State<HelloPage> {
     return items;
   }
 
-  void changedDropDownItem(String selectedCity) {
+  void changedDropDownItem(String selectedJob) {
     setState(() {
-      _selectedJob = selectedCity;
+      _selectedJob = selectedJob;
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ResultPage(selectedJob: _selectedJob)),
+      );
     });
   }
 

@@ -59,16 +59,32 @@ class ItJob{
   }
 }
 
+class Prediction{
+  final String name;
+  final int rate;
+
+  Prediction(this.name, this.rate);
+
+  factory Prediction.fromJson(Map<String, dynamic> json) {
+    return new Prediction(
+      json['name'] as String,
+      json['rate'] as int,
+    );
+  }
+}
+
 class RoutineJob {
   final String name;
-  final List<String> predictions;
+  final List<Prediction> predictions;
 
   RoutineJob({this.name, this.predictions});
 
   factory RoutineJob.fromJson(Map<String, dynamic> json) {
+    var predictionsJson = json['predictions'];
+    var mapped = predictionsJson.map<Prediction>((j) => new Prediction.fromJson(j)).toList();
     return new RoutineJob(
       name: json['name'] as String,
-      predictions: new List<String>.from(json['predictions']),
+      predictions: mapped,
     );
   }
 }
