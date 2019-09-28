@@ -12,16 +12,17 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  String selectedJob;
+  String selectedRJob;
   List<ItJob> predictedJobs = new List<ItJob>();
+  ItJob selectedItJob;
 
-  _ResultPageState(@required String this.selectedJob);
+  _ResultPageState(@required String this.selectedRJob);
 
   @override
   void initState() {
     var r = Repository();
     var rJob = r.routineJobs
-        .firstWhere((j) => j.name == selectedJob, orElse: () => null);
+        .firstWhere((j) => j.name == selectedRJob, orElse: () => null);
     for (var itJob in Repository().itJobs) {
       var prediction = rJob.predictions
           .firstWhere((p) => p.name == itJob.name, orElse: () => null);
@@ -82,7 +83,7 @@ class _ResultPageState extends State<ResultPage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(48, 0, 0, 0),
                   height: 120.0,
-                  child: PredictionsList(predictedJobs),
+                  child: PredictionsList(predictedJobs, onTappedItem),
                 ),
                 SizedBox(
                   height: 27,
@@ -103,7 +104,7 @@ class _ResultPageState extends State<ResultPage> {
                             Container(
                               margin: EdgeInsets.all(22),
                               child: Text(
-                                "Sata bla bla bla",
+                                selectedItJob != null ? selectedItJob.name : "",
                                 style: TextStyle(
                                   fontSize: 23,
                                   color: CustomColors.TextSubHeader,
@@ -111,14 +112,50 @@ class _ResultPageState extends State<ResultPage> {
                               ),
                             ),
                             Container(
-                                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
-                                child: Text("long long text",
+                                margin: EdgeInsets.fromLTRB(22, 0, 22, 10),
+                                child: Text(
+                                    selectedItJob != null
+                                        ? selectedItJob.description
+                                        : "",
                                     style: TextStyle(
                                         fontSize: 14,
+                                        height: 1.6,
                                         color: CustomColors.TextHeader))),
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                                child: Text(
+                                    selectedItJob != null
+                                        ? "Зарплата " + selectedItJob.salary
+                                        : "",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomColors.BorderColor))),
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                alignment: Alignment(0.0, 0.0),
+                                height: 58,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: new Border.all(
+                                      color: CustomColors.BorderColor,
+                                      width: 2,
+                                      style: BorderStyle.solid),
+                                  borderRadius: new BorderRadius.all(
+                                      new Radius.circular(15.0)),
+                                ),
+                                child: Text("КУРС ПО DATA SINCE",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomColors.BorderColor))),
+
                           ],
                         ),
-                      )
+                      ),
+                      //_buildNotMyButton(),
                     ],
                   ),
                 ),
@@ -129,13 +166,54 @@ class _ResultPageState extends State<ResultPage> {
       ),
     );
   }
+
+  Widget _buildNotMyButton(){
+    return Container(
+      width: MediaQuery.of(context).size.width / 1.2,
+      height: 58,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            CustomColors.AccentColor,
+            CustomColors.AccentColor,
+          ],
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: CustomColors.AccentShadow,
+            blurRadius: 15.0,
+            spreadRadius: 7.0,
+            offset: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      child: Center(
+        child: const Text(
+          'ВОЙТИ ЧЕРЕЗ GOOGLE',
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  onTappedItem(int index) {
+    setState(() {
+      selectedItJob = predictedJobs[index];
+    });
+  }
 }
 
 class PredictionsList extends StatelessWidget {
   // Builder methods rely on a set of data, such as a list.
   final List<ItJob> predictionItJobs;
+  final Function(int) onItemTap;
+  int selectedIndex = -1;
 
-  PredictionsList(this.predictionItJobs);
+  PredictionsList(this.predictionItJobs, this.onItemTap);
 
   // First, make your build method like normal.
   // Instead of returning Widgets, return a method that returns widgets.
@@ -143,6 +221,11 @@ class PredictionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildList(context);
+  }
+
+  void itemOnTapped(int index){
+    selectedIndex = index;
+    onItemTap(index);
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
@@ -153,36 +236,44 @@ class PredictionsList extends StatelessWidget {
         color: Colors.white,
         borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
       ),
-      child: Column(
-        children: <Widget>[
-          Stack(children: <Widget>[
-            Image.asset('assets/' + predictionItJobs[index].image),
-            Container(
-              height: 60,
-              alignment: Alignment(1.0, 1.0),
-              child: Container(
-                width: 35,
-                height: 35,
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 5.0),
+      child: InkWell(
+        onTap: () => {
+          itemOnTapped(index)
+        },
+        child: Column(
+          children: <Widget>[
+            Stack(children: <Widget>[
+              Image.asset('assets/' + predictionItJobs[index].image),
+              Container(
+                height: 60,
                 alignment: Alignment(1.0, 1.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      new BorderRadius.only(topLeft: Radius.circular(35.0)),
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 5.0),
+                  alignment: Alignment(1.0, 1.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        new BorderRadius.only(topLeft: Radius.circular(35.0)),
+                  ),
+                  child: Text(
+                      predictionItJobs[index].predictRate.toString() + "%",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: CustomColors.TextHeader)),
                 ),
-                child: Text(
-                    predictionItJobs[index].predictRate.toString() + "%",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: CustomColors.TextHeader)),
               ),
-            ),
-          ]),
-          SizedBox(height: 12),
-          Text(predictionItJobs[index].name,
-              style: TextStyle(fontSize: 14, color: CustomColors.TextHeader))
-        ],
+            ]),
+            SizedBox(height: 12),
+            Text(predictionItJobs[index].name,
+                style: TextStyle(
+                    fontWeight: selectedIndex == index ? FontWeight.bold : FontWeight.w400,
+                    fontSize: 14,
+                    color: CustomColors.TextHeader))
+          ],
+        ),
       ),
     );
   }
