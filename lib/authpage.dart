@@ -110,7 +110,9 @@ class _AuthPageState extends State<AuthPage> {
                         child: const Text(
                           'ВОЙТИ ЧЕРЕЗ GOOGLE',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

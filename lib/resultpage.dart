@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 import 'Repository.dart';
 import 'util.dart';
@@ -53,7 +54,7 @@ class _ResultPageState extends State<ResultPage> {
                 CustomColors.GradientMiddle,
                 CustomColors.GradientBottom
               ])),
-          child: Container(
+          child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 SizedBox(height: 80),
@@ -88,12 +89,12 @@ class _ResultPageState extends State<ResultPage> {
                 SizedBox(
                   height: 27,
                 ),
-                SingleChildScrollView(
+                Container(
                   child: Column(
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(horizontal: 48),
+                        margin: const EdgeInsets.fromLTRB(48, 0, 48, 48),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius:
@@ -126,36 +127,53 @@ class _ResultPageState extends State<ResultPage> {
                                 margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
                                 child: Text(
                                     selectedItJob != null
-                                        ? "Зарплата " + selectedItJob.salary
+                                        ? "Зарплата: " + selectedItJob.salary
                                         : "",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         color: CustomColors.BorderColor))),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                alignment: Alignment(0.0, 0.0),
-                                height: 58,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: new Border.all(
-                                      color: CustomColors.BorderColor,
-                                      width: 2,
-                                      style: BorderStyle.solid),
-                                  borderRadius: new BorderRadius.all(
-                                      new Radius.circular(15.0)),
-                                ),
-                                child: Text("КУРС ПО DATA SINCE",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: CustomColors.BorderColor))),
-
+                            InkWell(
+                              onTap: () => {
+                                FlutterWebBrowser.openWebPage(
+                                    url: selectedItJob != null
+                                        ? selectedItJob.links[0]
+                                        : "",
+                                    androidToolbarColor: CustomColors.AccentColor)
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(22),
+                                  width: MediaQuery.of(context).size.width,
+                                  alignment: Alignment(0.0, 0.0),
+                                  height: 58,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: new Border.all(
+                                        color: CustomColors.BorderColor,
+                                        width: 2,
+                                        style: BorderStyle.solid),
+                                    borderRadius: new BorderRadius.all(
+                                        new Radius.circular(15.0)),
+                                  ),
+                                  child: Text(
+                                      selectedItJob != null
+                                          ? selectedItJob.link_text
+                                          : "",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: CustomColors.BorderColor))),
+                            ),
                           ],
                         ),
                       ),
-                      //_buildNotMyButton(),
+                      Text("Не твое?",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.TextHeader)),
+                      _buildNotMyButton(),
                     ],
                   ),
                 ),
@@ -167,9 +185,10 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  Widget _buildNotMyButton(){
+  Widget _buildNotMyButton() {
     return Container(
       width: MediaQuery.of(context).size.width / 1.2,
+      margin: EdgeInsets.fromLTRB(0, 18, 0, 50),
       height: 58,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -192,9 +211,9 @@ class _ResultPageState extends State<ResultPage> {
       ),
       child: Center(
         child: const Text(
-          'ВОЙТИ ЧЕРЕЗ GOOGLE',
+          'РАССКАЗАТЬ О СЕБЕ БОЛЬШЕ',
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -223,7 +242,7 @@ class PredictionsList extends StatelessWidget {
     return _buildList(context);
   }
 
-  void itemOnTapped(int index){
+  void itemOnTapped(int index) {
     selectedIndex = index;
     onItemTap(index);
   }
@@ -237,9 +256,7 @@ class PredictionsList extends StatelessWidget {
         borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
       ),
       child: InkWell(
-        onTap: () => {
-          itemOnTapped(index)
-        },
+        onTap: () => {itemOnTapped(index)},
         child: Column(
           children: <Widget>[
             Stack(children: <Widget>[
@@ -269,7 +286,9 @@ class PredictionsList extends StatelessWidget {
             SizedBox(height: 12),
             Text(predictionItJobs[index].name,
                 style: TextStyle(
-                    fontWeight: selectedIndex == index ? FontWeight.bold : FontWeight.w400,
+                    fontWeight: selectedIndex == index
+                        ? FontWeight.bold
+                        : FontWeight.w400,
                     fontSize: 14,
                     color: CustomColors.TextHeader))
           ],

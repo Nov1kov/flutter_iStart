@@ -46,10 +46,11 @@ class ItJob{
   final String description;
   final String salary;
   final String image;
+  final String link_text;
   final List<String> links;
   int predictRate;
 
-  ItJob({this.name, this.description, this.salary, this.image, this.links});
+  ItJob({this.name, this.description, this.salary, this.image, this.link_text, this.links});
 
   factory ItJob.fromJson(Map<String, dynamic> json) {
     return new ItJob(
@@ -57,6 +58,7 @@ class ItJob{
       description: json['description'] as String,
       salary: json['salary'] as String,
       image: json['image'] as String,
+      link_text: json['link_text'] as String,
       links: new List<String>.from(json['links']),
     );
   }
