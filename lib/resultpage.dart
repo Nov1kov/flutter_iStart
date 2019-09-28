@@ -23,7 +23,10 @@ class _ResultPageState extends State<ResultPage> {
     var rJob = r.routineJobs
         .firstWhere((j) => j.name == selectedJob, orElse: () => null);
     for (var itJob in Repository().itJobs) {
-      if (rJob.predictions.any((p) => p.name == itJob.name)) {
+      var prediction = rJob.predictions
+          .firstWhere((p) => p.name == itJob.name, orElse: () => null);
+      if (prediction != null) {
+        itJob.predictRate = prediction.rate;
         predictedJobs.add(itJob);
       }
     }
@@ -152,7 +155,30 @@ class PredictionsList extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Image.asset('assets/' + (index + 1).toString() + '.png'),
+          Stack(children: <Widget>[
+            Image.asset('assets/' + predictionItJobs[index].image),
+            Container(
+              height: 60,
+              alignment: Alignment(1.0, 1.0),
+              child: Container(
+                width: 35,
+                height: 35,
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.0, 5.0),
+                alignment: Alignment(1.0, 1.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      new BorderRadius.only(topLeft: Radius.circular(35.0)),
+                ),
+                child: Text(
+                    predictionItJobs[index].predictRate.toString() + "%",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: CustomColors.TextHeader)),
+              ),
+            ),
+          ]),
           SizedBox(height: 12),
           Text(predictionItJobs[index].name,
               style: TextStyle(fontSize: 14, color: CustomColors.TextHeader))
