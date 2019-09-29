@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:istart/quizpage.dart';
 import 'package:istart/resultpage.dart';
 import 'package:istart/util.dart';
 
@@ -39,7 +40,7 @@ class _splashscreenState extends State<splashscreen> {
 
   void openHelloPage() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => HelloPage(),
+      builder: (context) => QuizPage(),
     ));
   }
 

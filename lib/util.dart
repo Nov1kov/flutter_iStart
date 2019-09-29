@@ -62,12 +62,25 @@ class CustomColors {
   static const Color TextWhite = Color.fromRGBO(243, 243, 243, 1);
   static const Color HeaderCircle = Color.fromRGBO(255, 255, 255, 0.17);
 
+  static const Color HintText = Color.fromRGBO(203, 203, 203, 1);
   static const Color AccentColor = Color.fromRGBO(84, 104, 255, 1);
   static const Color AccentShadow = Color.fromRGBO(84, 184, 255, 0.68);
+  static const Color GrayShadow = Color.fromRGBO(190, 190, 190, 0.2);
 
   static const Color GradientBottom = Color.fromRGBO(194, 212, 248, 1);
   static const Color StatusBarColor = Color.fromRGBO(194, 212, 248, 0.3);
   static const Color GradientTop = Color.fromRGBO(247, 249, 253, 1);
   static const Color GradientMiddle = Color.fromRGBO(244, 248, 255, 1);
   static const Color BorderColor = Color.fromRGBO(84, 105, 255, 1);
+}
+
+class ui {
+  static BoxShadow getShadow() {
+    return BoxShadow(
+      color: CustomColors.GrayShadow,
+      blurRadius: 19.0,
+      spreadRadius: 12.0,
+      offset: Offset(0.0, 0.0),
+    );
+  }
 }

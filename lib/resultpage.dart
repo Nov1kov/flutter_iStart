@@ -99,6 +99,7 @@ class _ResultPageState extends State<ResultPage> {
                           color: Colors.white,
                           borderRadius:
                               new BorderRadius.all(new Radius.circular(15.0)),
+                          boxShadow: [ui.getShadow()],
                         ),
                         child: Column(
                           children: <Widget>[
@@ -140,7 +141,8 @@ class _ResultPageState extends State<ResultPage> {
                                     url: selectedItJob != null
                                         ? selectedItJob.links[0]
                                         : "",
-                                    androidToolbarColor: CustomColors.AccentColor)
+                                    androidToolbarColor:
+                                        CustomColors.AccentColor)
                               },
                               child: Container(
                                   margin: EdgeInsets.all(22),
