@@ -80,15 +80,17 @@ class Prediction{
 
 class RoutineJob {
   final String name;
+  final String image;
   final List<Prediction> predictions;
 
-  RoutineJob({this.name, this.predictions});
+  RoutineJob({this.name, this.predictions, this.image});
 
   factory RoutineJob.fromJson(Map<String, dynamic> json) {
     var predictionsJson = json['predictions'];
     var mapped = predictionsJson.map<Prediction>((j) => new Prediction.fromJson(j)).toList();
     return new RoutineJob(
       name: json['name'] as String,
+      image: json['image'] as String,
       predictions: mapped,
     );
   }

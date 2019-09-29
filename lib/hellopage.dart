@@ -29,7 +29,7 @@ class _HelloPageState extends State<HelloPage> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 16, 0),
-                child: Image.asset('assets/auth_page_image.png'),
+                child: Image.asset('assets/' + job.image),
               ),
               Container(
                 alignment: Alignment(0.0, 0.0),

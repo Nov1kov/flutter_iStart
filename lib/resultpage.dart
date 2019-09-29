@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:istart/quizpage.dart';
 
 import 'Repository.dart';
 import 'util.dart';
@@ -53,15 +54,18 @@ class _ResultPageState extends State<ResultPage> {
                 child: Image.asset("assets/back.png"))),
         Container(
           padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
-          height: 110,
+          height: 130,
           child: Column(
             children: <Widget>[
-              Text(
-                "Вот, что тебе подходит",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColors.TextHeader),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: Text(
+                  "Вот, что тебе подходит",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: CustomColors.TextHeader),
+                ),
               ),
               Text(
                 'Освой новую профессию',
@@ -82,13 +86,13 @@ class _ResultPageState extends State<ResultPage> {
         SizedBox(
           height: 27,
         ),
-
       ],
     );
-    if (selectedItJob != null){
+    if (selectedItJob != null) {
       column.children.add(_buildJobDescription());
-    }else{
-      var filler = SizedBox(height: MediaQuery.of(context).size.height - 80 - 110 - 27 - 120);
+    } else {
+      var filler = SizedBox(
+          height: MediaQuery.of(context).size.height - 80 - 110 - 27 - 120);
       column.children.add(filler);
     }
     return Scaffold(
@@ -114,7 +118,7 @@ class _ResultPageState extends State<ResultPage> {
   Widget _buildNotMyButton() {
     return Container(
       width: MediaQuery.of(context).size.width / 1.2,
-      margin: EdgeInsets.fromLTRB(0, 18, 0, 50),
+      margin: EdgeInsets.fromLTRB(0, 36, 0, 50),
       height: 58,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -135,11 +139,18 @@ class _ResultPageState extends State<ResultPage> {
           ),
         ],
       ),
-      child: Center(
-        child: const Text(
-          'РАССКАЗАТЬ О СЕБЕ БОЛЬШЕ',
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      child: InkWell(
+        onTap: () => {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => QuizPage(),
+          ))
+        },
+        child: Center(
+          child: const Text(
+            'РАССКАЗАТЬ О СЕБЕ БОЛЬШЕ',
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
@@ -184,6 +195,7 @@ class _ResultPageState extends State<ResultPage> {
                             height: 1.6,
                             color: CustomColors.TextHeader))),
                 Container(
+                    padding: EdgeInsets.all(8),
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
                     child: Text(
@@ -261,7 +273,7 @@ class PredictionsList extends StatelessWidget {
 
   Widget _buildProductItem(BuildContext context, int index) {
     if (index == 0) {
-      return SizedBox(width: 48);
+      return SizedBox(width: 44);
     }
     var itJob = predictionItJobs[index - 1];
     return Container(

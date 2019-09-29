@@ -1,6 +1,7 @@
 [
   {
     "name": "Бухгалтер",
+    "image": "buh.png",
     "predictions": [
       {
         "name": "Аналитик big data",
@@ -18,6 +19,7 @@
   },
   {
     "name": "Оператор call cetner",
+    "image": "callcenter.png",
     "predictions": [
       {
         "name": "Менджер digital коммуникациям",
@@ -35,6 +37,7 @@
   },
   {
     "name": "специалист по закупкам",
+    "image": "zakupki.png",
     "predictions": [
       {
         "name": "Сетевой юрист",
