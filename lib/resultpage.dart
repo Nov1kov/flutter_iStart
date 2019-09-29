@@ -82,7 +82,6 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(48, 0, 0, 0),
                   height: 120.0,
                   child: PredictionsList(predictedJobs, onTappedItem),
                 ),
@@ -245,11 +244,15 @@ class PredictionsList extends StatelessWidget {
   }
 
   void itemOnTapped(int index) {
-    selectedIndex = index;
-    onItemTap(index);
+    selectedIndex = index - 1;
+    onItemTap(index - 1);
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
+    if (index == 0){
+      return SizedBox(width: 48);
+    }
+    var itJob = predictionItJobs[index - 1];
     return Container(
       width: 130,
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -262,7 +265,7 @@ class PredictionsList extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Stack(children: <Widget>[
-              Image.asset('assets/' + predictionItJobs[index].image),
+              Image.asset('assets/' + itJob.image),
               Container(
                 height: 60,
                 alignment: Alignment(1.0, 1.0),
@@ -277,7 +280,7 @@ class PredictionsList extends StatelessWidget {
                         new BorderRadius.only(topLeft: Radius.circular(35.0)),
                   ),
                   child: Text(
-                      predictionItJobs[index].predictRate.toString() + "%",
+                      itJob.predictRate.toString() + "%",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
@@ -286,7 +289,7 @@ class PredictionsList extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 12),
-            Text(predictionItJobs[index].name,
+            Text(itJob.name,
                 style: TextStyle(
                     fontWeight: selectedIndex == index
                         ? FontWeight.bold
@@ -303,7 +306,7 @@ class PredictionsList extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       // Must have an item count equal to the number of items!
-      itemCount: predictionItJobs.length,
+      itemCount: predictionItJobs.length + 1,
       // A callback that will return a widget.
       itemBuilder: _buildProductItem,
     );

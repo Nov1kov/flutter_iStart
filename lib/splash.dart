@@ -40,7 +40,7 @@ class _splashscreenState extends State<splashscreen> {
 
   void openHelloPage() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => QuizPage(),
+      builder: (context) => HelloPage(),
     ));
   }
 

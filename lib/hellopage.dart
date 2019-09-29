@@ -21,9 +21,28 @@ class _HelloPageState extends State<HelloPage> {
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
     var jobs = Repository().routineJobs;
-    for( var i = 0 ; i < jobs.length; i++ ){
-      var job = Repository().routineJobs[i];
-      items.add(new DropdownMenuItem(value: job.name, child: new Text(job.name)));
+    for (var i = 0; i < jobs.length; i++) {
+      var job = jobs[i];
+      items.add(new DropdownMenuItem(
+          value: job.name,
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(12, 0, 16, 0),
+                child: Image.asset('assets/auth_page_image.png'),
+              ),
+              Container(
+                alignment: Alignment(0.0, 0.0),
+                child: Text(
+                  job.name,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: CustomColors.TextHeader,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          )));
     }
     return items;
   }
@@ -33,7 +52,8 @@ class _HelloPageState extends State<HelloPage> {
       _selectedJob = selectedJob;
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ResultPage(selectedJob: _selectedJob)),
+        MaterialPageRoute(
+            builder: (context) => ResultPage(selectedJob: _selectedJob)),
       );
     });
   }
@@ -95,8 +115,9 @@ class _HelloPageState extends State<HelloPage> {
                   flex: 3,
                   child: new Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.of(context).size.width * 0.84,
                       height: 70,
+                      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: new Border.all(
@@ -105,13 +126,24 @@ class _HelloPageState extends State<HelloPage> {
                             style: BorderStyle.solid),
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(15.0)),
+                        boxShadow: [ui.getShadow()],
                       ),
-                      child: new DropdownButton(
+                      child: Container(
+                        child: DropdownButton(
+                          hint: Text(
+                            "Выбрать",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: CustomColors.DropdownHintText,
+                            ),
+                          ),
                           value: _selectedJob,
                           items: _dropDownMenuItems,
                           onChanged: changedDropDownItem,
                           icon: Image.asset('assets/down_arrow.png'),
                         ),
+                      ),
                     ),
                   ),
                 ),
