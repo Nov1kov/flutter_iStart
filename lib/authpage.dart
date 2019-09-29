@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'auth.dart';
 import 'hellopage.dart';
 import 'util.dart';
 
@@ -74,10 +75,7 @@ class _AuthPageState extends State<AuthPage> {
                   flex: 0,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HelloPage()),
-                      );
+                      login();
                     },
                     textColor: Colors.white,
                     padding: const EdgeInsets.all(0.0),
@@ -128,5 +126,17 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
     );
+  }
+
+  void login() {
+    Auth().googleSignIn().then((user) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HelloPage()),
+      );
+    }).catchError((error) {
+      final snackBar = SnackBar(content: Text('Ощибка при авторизации ' + error.toString()));
+      Scaffold.of(context).showSnackBar(snackBar);
+    });
   }
 }

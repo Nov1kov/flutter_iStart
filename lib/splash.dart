@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:istart/resultpage.dart';
+import 'package:istart/util.dart';
 
 import 'Repository.dart';
+import 'auth.dart';
 import 'authpage.dart';
 import 'hellopage.dart';
 
@@ -12,30 +14,46 @@ class splashscreen extends StatefulWidget {
 }
 
 class _splashscreenState extends State<splashscreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () async {
-      var r = Repository();
-      await r.load();
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => AuthPage(),
-      ));
+    var auth = Auth();
+    auth.getCurrentUser().then((user) async {
+      await Repository().load();
+      if (user != null) {
+        openHelloPage();
+      }else{
+        openAuthPage();
+      }
+    }).catchError((error) async {
+      await Repository().load();
+      openAuthPage();
     });
   }
 
+  void openAuthPage() {
+     Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => AuthPage(),
+    ));
+  }
+
+  void openHelloPage() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => HelloPage(),
+    ));
+  }
+
   // added test yourself
-  // and made the text to align at center 
+  // and made the text to align at center
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo,
+      backgroundColor: CustomColors.GradientBottom,
       body: Center(
         child: Text(
-          "Quizstar\nTest Yourself !!",
+          "iStart",
           style: TextStyle(
-            fontSize: 50.0,
+            fontSize: 16.0,
             color: Colors.white,
             fontFamily: "Satisfy",
           ),

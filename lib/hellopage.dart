@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:istart/resultpage.dart';
 import 'Repository.dart';
+import 'auth.dart';
 import 'util.dart';
 
 class HelloPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class HelloPage extends StatefulWidget {
 
 class _HelloPageState extends State<HelloPage> {
   String getHelloText() {
-    return "Привет, " + "Константин";
+    return "Привет, " + Auth().user.displayName;
   }
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;

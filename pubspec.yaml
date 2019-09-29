@@ -26,6 +26,13 @@ dependencies:
   gradient_app_bar: ^0.1.3
   flutter_web_browser: ^0.11.0
 
+  # Add the dependency for the Firebase Core Flutter SDK
+  # Add the dependency for the FlutterFire plugin for Google Analytics
+  # Add the dependencies for any other Firebase products you want to use in your app
+  # For example, to use Firebase Authentication and Cloud Firestore
+  firebase_auth: ^0.14.0+5
+  google_sign_in:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
