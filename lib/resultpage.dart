@@ -42,6 +42,55 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    var column = Column(
+      children: <Widget>[
+        Container(
+            height: 80,
+            padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+            alignment: Alignment(-1.0, 0.5),
+            child: InkWell(
+                onTap: () => {Navigator.of(context).pop()},
+                child: Image.asset("assets/back.png"))),
+        Container(
+          padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
+          height: 110,
+          child: Column(
+            children: <Widget>[
+              Text(
+                "Вот, что тебе подходит",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColors.TextHeader),
+              ),
+              Text(
+                'Освой новую профессию',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: CustomColors.TextHeader,
+                    fontFamily: 'opensans'),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 120.0,
+          child: PredictionsList(predictedJobs, onTappedItem),
+        ),
+        SizedBox(
+          height: 27,
+        ),
+
+      ],
+    );
+    if (selectedItJob != null){
+      column.children.add(_buildJobDescription());
+    }else{
+      var filler = SizedBox(height: MediaQuery.of(context).size.height - 80 - 110 - 27 - 120);
+      column.children.add(filler);
+    }
     return Scaffold(
       body: Center(
         child: Container(
@@ -55,131 +104,7 @@ class _ResultPageState extends State<ResultPage> {
                 CustomColors.GradientBottom
               ])),
           child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 80),
-                Container(
-                  height: MediaQuery.of(context).size.height / 8,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        "Вот, что тебе подходит",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.TextHeader),
-                      ),
-                      Text(
-                        'Освой новую профессию',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: CustomColors.TextHeader,
-                            fontFamily: 'opensans'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 120.0,
-                  child: PredictionsList(predictedJobs, onTappedItem),
-                ),
-                SizedBox(
-                  height: 27,
-                ),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.fromLTRB(48, 0, 48, 48),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(15.0)),
-                          boxShadow: [ui.getShadow()],
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.all(22),
-                              child: Text(
-                                selectedItJob != null ? selectedItJob.name : "",
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  color: CustomColors.TextSubHeader,
-                                ),
-                              ),
-                            ),
-                            Container(
-                                margin: EdgeInsets.fromLTRB(22, 0, 22, 10),
-                                child: Text(
-                                    selectedItJob != null
-                                        ? selectedItJob.description
-                                        : "",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        height: 1.6,
-                                        color: CustomColors.TextHeader))),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
-                                child: Text(
-                                    selectedItJob != null
-                                        ? "Зарплата: " + selectedItJob.salary
-                                        : "",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: CustomColors.BorderColor))),
-                            InkWell(
-                              onTap: () => {
-                                FlutterWebBrowser.openWebPage(
-                                    url: selectedItJob != null
-                                        ? selectedItJob.links[0]
-                                        : "",
-                                    androidToolbarColor:
-                                        CustomColors.AccentColor)
-                              },
-                              child: Container(
-                                  margin: EdgeInsets.all(22),
-                                  width: MediaQuery.of(context).size.width,
-                                  alignment: Alignment(0.0, 0.0),
-                                  height: 58,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: new Border.all(
-                                        color: CustomColors.BorderColor,
-                                        width: 2,
-                                        style: BorderStyle.solid),
-                                    borderRadius: new BorderRadius.all(
-                                        new Radius.circular(15.0)),
-                                  ),
-                                  child: Text(
-                                      selectedItJob != null
-                                          ? selectedItJob.link_text
-                                          : "",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomColors.BorderColor))),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text("Не твое?",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: CustomColors.TextHeader)),
-                      _buildNotMyButton(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            child: column,
           ),
         ),
       ),
@@ -225,6 +150,92 @@ class _ResultPageState extends State<ResultPage> {
       selectedItJob = predictedJobs[index];
     });
   }
+
+  Widget _buildJobDescription() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.fromLTRB(48, 0, 48, 48),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
+              boxShadow: [ui.getShadow()],
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(22),
+                  child: Text(
+                    selectedItJob != null ? selectedItJob.name : "",
+                    style: TextStyle(
+                      fontSize: 23,
+                      color: CustomColors.TextSubHeader,
+                    ),
+                  ),
+                ),
+                Container(
+                    margin: EdgeInsets.fromLTRB(22, 0, 22, 10),
+                    child: Text(
+                        selectedItJob != null ? selectedItJob.description : "",
+                        style: TextStyle(
+                            fontSize: 14,
+                            height: 1.6,
+                            color: CustomColors.TextHeader))),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                    child: Text(
+                        selectedItJob != null
+                            ? "Зарплата: " + selectedItJob.salary
+                            : "",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.BorderColor))),
+                InkWell(
+                  onTap: () => {
+                    FlutterWebBrowser.openWebPage(
+                        url:
+                            selectedItJob != null ? selectedItJob.links[0] : "",
+                        androidToolbarColor: CustomColors.AccentColor)
+                  },
+                  child: Container(
+                      margin: EdgeInsets.all(22),
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment(0.0, 0.0),
+                      height: 58,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: new Border.all(
+                            color: CustomColors.BorderColor,
+                            width: 2,
+                            style: BorderStyle.solid),
+                        borderRadius:
+                            new BorderRadius.all(new Radius.circular(15.0)),
+                      ),
+                      child: Text(
+                          selectedItJob != null ? selectedItJob.link_text : "",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.BorderColor))),
+                ),
+              ],
+            ),
+          ),
+          Text("Не твое?",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: CustomColors.TextHeader)),
+          _buildNotMyButton(),
+        ],
+      ),
+    );
+  }
 }
 
 class PredictionsList extends StatelessWidget {
@@ -249,7 +260,7 @@ class PredictionsList extends StatelessWidget {
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
-    if (index == 0){
+    if (index == 0) {
       return SizedBox(width: 48);
     }
     var itJob = predictionItJobs[index - 1];
@@ -279,8 +290,7 @@ class PredictionsList extends StatelessWidget {
                     borderRadius:
                         new BorderRadius.only(topLeft: Radius.circular(35.0)),
                   ),
-                  child: Text(
-                      itJob.predictRate.toString() + "%",
+                  child: Text(itJob.predictRate.toString() + "%",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
